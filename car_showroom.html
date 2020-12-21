@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showroom</title>
+</head>
+<body onload="CarTable(getDataCar())">
+    <form onsubmit="CarRegistration()">
+        <input type="text" placeholder="BRAND" name="car_registration" id="brand_reg">
+        <input type="text" placeholder="MODEL" name="car_registration" id="model_reg">
+        <input type="text" placeholder="NAME" name="car_registration" id="name_reg">
+        <input type="text" placeholder="FACTORY YEAR" name="car_registration" id="factory_yr_reg">
+        <input type="text" placeholder="COLOR" name="car_registration" id="color_reg">
+        <input type="text" placeholder="PRICE" name="car_registration" id="price_reg">
+        <input type="submit">
+    </form>
+    <table class="table table-dark">
+        <tr id="car-table">
+          <th data-column="brand" data-order="decr" name="car_info">BRAND</th>
+          <th data-column="model" data-order="decr" name="car_info">MODEL</th>
+          <th data-column="name" data-order="decr" name="car_info">NAME</th>
+          <th data-column="factory_yr" data-order="decr" name="car_info">FACTORY YEAR</th>
+          <th data-column="color" data-order="decr" name="car_info">COLOR</th>
+          <th data-column="price" data-order="decr" name="car_info">PRICE</th>
+          <th data-column="car_id" data-order="decr" name="car_info">ID</th>
+          <th>Edit/Delete</th>
+        </tr>
+        <tbody id="car_table">
+
+        </tbody>
+      </table>
+    <script src="project.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+</body>
+</html>
