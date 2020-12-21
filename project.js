@@ -1,6 +1,7 @@
 $(document).ready(function(){
-    $(".dt_birth").mask('00/00/0000');
-    $(".phone").mask('(00) 00000-0000');
+    $("#dt_birth").mask('00/00/0000');
+    $("#phone").mask('(00) 000000000');
+    $("#price_reg").mask('000.000.000', {reverse: true});
 })
 
 let dataSaler = [];
@@ -45,11 +46,12 @@ function RegisterSaler(){ //sistema para cadastrar um novo usuario.
     };        
 };
 //function to check if passwords are the same for checking pourposes
-function ValidPass(){
+function ValidPassword(){
+    let message = document.getElementById("password_message")
     let pass1 = document.getElementById("password").value;
     let pass2 = document.getElementById("password_confirmation").value;
     if(pass1 !== pass2){
-        alert("Password fields must be equal!");
+        message.innerHTML = "Password fields must be equal!";
     };
 };
 
@@ -118,8 +120,7 @@ function Car(brand, model, name, factoryYr, color, price, idCar){
     this.name = name,
     this.factoryYr = factoryYr,
     this.color = color,
-    this.price = price,
-    this.idCar = idCar
+    this.price = price
 };
 
 function CarForm(){ //constroi o objeto para utilizar na criação da tabela e armazenamento dos certificados no localStorage
@@ -130,7 +131,7 @@ function CarForm(){ //constroi o objeto para utilizar na criação da tabela e a
 };
 
 function CarRegistration(){
-    let car = CarForm();
+    let car = CarForm(); 
     if (localStorage.getItem('car') === null){ //se o localStorage nao existir, cria-se um
         carDataBase.push(car)
         localStorage.setItem('car', JSON.stringify(carDataBase));   
@@ -163,8 +164,38 @@ $('#car-table').on('click', function(){
         $(this).data('ordem', "decr");
         carDataBase = carDataBase.sort((a,b) => a[column]<b[column] ? 1 : -1);
     }  
-    Criatabela(carDataBase);
+    CarTable(carDataBase);
 });
+
+function SearchCar(){
+   let item = document.getElementById('search_row').value;
+   let data =  SearchTable(item, carDataBase)
+   CarTable(data)
+};
+
+function SearchTable(item, data){
+    let filteredData = [];
+    for (let i = 0; i < data.length; i++){
+        item = item.toLowerCase();
+        let brand = data[i].brand.toLowerCase();
+        let model = data[i].model.toLowerCase();
+        let name = data[i].name.toLowerCase();
+        let factoryYr = data[i].factoryYr.toLowerCase();
+        let color = data[i].color.toLowerCase();
+        let price = data[i].price.toLowerCase();
+
+        if(brand.includes(item) || 
+            model.includes(item) ||
+            name.includes(item)||
+            factoryYr.includes(item) ||
+            color.includes(item) ||
+            price.includes(item) ||
+            idCar.includes(item)){
+            filteredData.push(data[i])
+        };
+    };
+    return filteredData;
+};
 
 //function to create a table to show car data information 
 function CarTable(data){ 
@@ -180,18 +211,17 @@ function CarTable(data){
                         <td name='row-${data[i].id}' data-id="${data[i].id}" >${data[i].factoryYr}</td> 
                         <td name='row-${data[i].id}' data-id="${data[i].id}" >${data[i].color}</td> 
                         <td name='row-${data[i].id}' data-id="${data[i].id}" >${data[i].price}</td> 
-                        <td name='row-${data[i].id}' data-id="${data[i].id}" >${data[i].idCar}</td> 
                         <td>
-                            <img id="edit-${data[i].id}" src='imagens/edit.png' style="padding-left: 10px;" class='' data-id="${data[i].id}">
-                            <img id="delete-${data[i].id}"  src='imagens/lixo.png' style="padding-left: 10px;" class='' data-id="${data[i].id}">
-                            <img id="confirm-${data[i].id}"  src='imagens/certo.png' style="padding-left: 10px;" class='hidden' data-id="${data[i].id}"> 
-                            <img id="cancel-${data[i].id}"  src='imagens/errado.png' style="padding-left: 10px;" class='hidden' data-id="${data[i].id}">    
-                            <img id="cancEdit-${data[i].id}"  src='imagens/errado.png' style="padding-left: 10px;" class='hidden' data-id="${data[i].id}">    
-                            <img id="confirmEdit-${data[i].id}" src='imagens/certo.png' style="padding-left: 10px;" class='hidden' data-id="${data[i].id}">  
+                            <img id="edit-${data[i].id}" src='edit.png' style="padding-left: 10px;" class='' data-id="${data[i].id}">
+                            <img id="delete-${data[i].id}"  src='lixo.png' style="padding-left: 10px;" class='' data-id="${data[i].id}">
+                            <img id="confirm-${data[i].id}"  src='certo.png' style="padding-left: 10px;" class='hidden' data-id="${data[i].id}"> 
+                            <img id="cancel-${data[i].id}"  src='errado.png' style="padding-left: 10px;" class='hidden' data-id="${data[i].id}">    
+                            <img id="cancEdit-${data[i].id}"  src='errado.png' style="padding-left: 10px;" class='hidden' data-id="${data[i].id}">    
+                            <img id="confirmEdit-${data[i].id}" src='certo.png' style="padding-left: 10px;" class='hidden' data-id="${data[i].id}">  
                         </td> 
                          
                    </tr>`;
-        $('#tabelaCertificados').append(row);
+        $('#car_table').append(row);
         
         $(`#delete-${data[i].id}`).on('click', DeleteCar);
         $(`#edit-${data[i].id}`).on('click', EditCar);

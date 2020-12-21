@@ -4,19 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Dealership</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <form onsubmit="RegisterSaler()">
-        <input type="text" name="seler_registration" id="name">
-        <input type="text" name="seler_registration" id="id">
-        <input type="text" name="seler_registration" id="dt_birth">
-        <input type="email" name="seler_registration" id="email">
-        <input type="text" name="seler_registration" id="phone">
-        <input type="text" name="seler_registration" id="password">
-        <input type="text" id="password_confirmation">
-        <input type="submit">
-    </form>
-    <div>
+    <div class="registration-control">
+        <form onsubmit="RegisterSaler()">
+            <input type="text" name="seler_registration" id="name" required>
+            <input type="text" name="seler_registration" id="id" required>
+            <input type="text" name="seler_registration" id="dt_birth" required></br>
+            <input type="email" name="seler_registration" id="email" required>
+            <input type="text" name="seler_registration" id="phone" required></br>
+            <input  type="text" name="seler_registration" id="password" required>
+            <input onblur="ValidPassword()" type="text" id="password_confirmation" required>
+            <a id="password_message"></a>
+            <input type="submit">
+        </form>
+    </div>   </br> 
+    <div class="login">
         <input type="text" id="login_id">
         <input type="password" id="login_password">
         <button onclick="Validation()">Login</button>
