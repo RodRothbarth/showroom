@@ -1,57 +1,57 @@
 $(document).ready(function(){
-    $("#dt_birth").mask('00/00/0000');
+    $("#id").mask('000.000.000-00');
     $("#phone").mask('(00) 000000000');
     $("#price_reg").mask('000.000.000', {reverse: true});
 })
 
-let dataSaler = [];
+let dataSeller = [];
 let carDataBase = [];
 
-function Saler(name, id, dtBirth, email, phone, password, idSaler){
+function Seller(name, id, dtBirth, password, phone, email){
     this.name = name,
     this.id = id,
     this.dtBirth = dtBirth,
     this.email = email,
     this.phone = phone,
-    this.password = password,
-    this.idSaler = idSaler
+    this.password = password
 };
 
-function SalerForm(){//cria o objeto a ser utilizado no cadastro
-    let user = Array.from(document.getElementsByName("seler_registration")).map(function(element){return element.value;}); 
-    let form = new User(user[0], user[1], user[2], user[4], user[5], user[6]);
+function SellerForm(){//cria o objeto a ser utilizado no cadastro
+    let user = Array.from(document.getElementsByName("seller_registration")).map(function(element){return element.value;}); 
+    let form = new Seller(user[0], user[1], user[2], user[3], user[5], user[6]);
         return form; 
 };
 
-function RegisterSaler(){ //sistema para cadastrar um novo usuario.
-    let user = SalerForm();
+function RegisterSeller(){ //sistema para cadastrar um novo usuario.
+    let seller = SellerForm();
     let exists;
      
     if (localStorage.getItem("user") === null ){
-        dataSaler.push(user);
-        localStorage.setItem("user", JSON.stringify(dataSaler));
+        dataSeller.push(seller);
+        localStorage.setItem("seller", JSON.stringify(dataSeller));
         alert("Registration Done!");
     }else{
-        dataSaler = JSON.parse(localStorage.getItem("user"));
-        for(let i=0;i<dataSaler.length;i++){
-           exists = dataSaler[i].id.includes(user.id)  
+        dataSeller = JSON.parse(localStorage.getItem("seller"));
+        for(let i=0;i<dataSeller.length;i++){
+           exists = dataSeller[i].id.includes(seller.id)  
         };
         if(exists === true){
-            alert("Saler already in register")
+            alert("Seller already registered!")
         }else{
-            dataSaler.push(user);
-            localStorage.setItem("user", JSON.stringify(dataSaler));
+            dataSeller.push(seller);
+            localStorage.setItem("seller", JSON.stringify(dataSeller));
             alert("Registration Done!");
         };   
     };        
 };
 //function to check if passwords are the same for checking pourposes
 function ValidPassword(){
-    let message = document.getElementById("password_message")
+    let message = document.getElementById("password_message");
     let pass1 = document.getElementById("password").value;
     let pass2 = document.getElementById("password_confirmation").value;
     if(pass1 !== pass2){
-        message.innerHTML = "Password fields must be equal!";
+        message.innerHTML = 'Password values must be equal!'
+        pass2 = '';
     };
 };
 
@@ -79,28 +79,28 @@ function Idcheck(strCPF) {
 
 //function used to validade in Form the authenticity of the Id number (true/false)
 function ValidId(){
-    var strCPF = document.getElementById("cpf").value;
+    var strCPF = document.getElementById("id").value;
     strCPF = strCPF.replace(".", ""); //excludes any simbol from dialing
     strCPF = strCPF.replace(/[^\d]+/g,'');
-    TestaCPF(strCPF);
-    if (TestaCPF(strCPF) !== true) {
+    Idcheck(strCPF);
+    if (Idcheck(strCPF) !== true) {
         alert("You have used an Invalid CPF number!");
         strCPF = ''
     }; 
 };
 
-// function to check the saler to grant access to the data base
+// function to check the Seller to grant access to the data base
 function Validation(){
-    dataSaler = JSON.parse(localStorage.getItem('user'));
+    dataSeller = JSON.parse(localStorage.getItem('user'));
     let usern = document.getElementById("login_id").value;
     let pssw = document.getElementById("login_password").value;
 
-    for(let i = 0; i < dataSaler.length; i++){
-        dataSaler[i].id = dataSaler.indexOf(dataSaler[i])
-        localStorage.setItem("user", JSON.stringify(dataSaler));
-        if(dataSaler[i].id === usern){
-            if(dataSaler[i].password === pssw){
-                localStorage.setItem("online", JSON.stringify(dataSaler[i]));
+    for(let i = 0; i < dataSeller.length; i++){
+        dataSeller[i].id = dataSeller.indexOf(dataSeller[i])
+        localStorage.setItem("user", JSON.stringify(dataSeller));
+        if(dataSeller[i].id === usern){
+            if(dataSeller[i].password === pssw){
+                localStorage.setItem("online", JSON.stringify(dataSeller[i]));
                 location.href="car_showroom.html";
             }else{
                 alert("Invalid Password!");
@@ -316,7 +316,7 @@ function DeleteCar(){ // ldeleta as informação do certificado desejado
 
 function ConfirmDel(){ // confirma a deleção do item da tabela
     let idRow = $(this).data("id")
-    let row = $(`.linha-${idRow}`)
+    let row = $(`.row-${idRow}`)
     
     carDataBase.splice(`${idRow}`,1)
     localStorage.setItem('car', JSON.stringify(carDataBase))  

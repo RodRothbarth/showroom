@@ -4,25 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Dealership</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  <!--jquery -->
+    <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
     <div class="registration-control">
-        <form onsubmit="RegisterSaler()">
-            <input type="text" name="seler_registration" id="name" required>
-            <input type="text" name="seler_registration" id="id" required>
-            <input type="text" name="seler_registration" id="dt_birth" required></br>
-            <input type="email" name="seler_registration" id="email" required>
-            <input type="text" name="seler_registration" id="phone" required></br>
-            <input  type="text" name="seler_registration" id="password" required>
-            <input onblur="ValidPassword()" type="text" id="password_confirmation" required>
-            <a id="password_message"></a>
+        <form onsubmit="RegisterSeller()">
+            <h1>Seller Registration</h1></br>
+            <label for="name">Full Name:</label></br>
+            <input type="text" name="seller_registration" id="name" required></br>
+            <label for="id">CPF Number:</label></br>
+            <input onblur="ValidId()" type="text" name="seller_registration" id="id" required></br>
+            <label for="dt_birth">Date of Birth:</label></br>
+            <input type="date" name="seller_registration" id="dt_birth" required></br>
+            <label for="password">Password:</label></br>
+            <input  type="password" name="seller_registration" id="password" required></br>
+            <label for="password_confirmation">Confirm Password:</label></br>
+            <input onblur="ValidPassword()" type="password" id="password_confirmation" required>
+            <a id="password_message"></a></br>
+            <label for="email">E-mail:</label></br>
+            <input type="email" name="seller_registration" id="email" required></br>
+            <label for="phone">Telephone:</label></br>
+            <input type="text" name="seller_registration" id="phone" required></br>
             <input type="submit">
         </form>
-    </div>   </br> 
-    <div class="login">
-        <input type="text" id="login_id">
-        <input type="password" id="login_password">
+    </div> 
+    <div id="oi">
+        <h1>Login</h1>
+        <label for="login_id">CPF Number:</label></br>
+        <input type="text" id="login_id"></br>
+        <label for="login_password">Password:</label></br>
+        <input type="password" id="login_password"></br>
         <button onclick="Validation()">Login</button>
     </div>
     
