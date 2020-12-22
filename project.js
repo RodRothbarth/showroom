@@ -1,7 +1,6 @@
 $(document).ready(function(){
     $("#id").mask('000.000.000-00');
     $("#phone").mask('(00) 000000000');
-    $("#price_reg").mask('000.000.000', {reverse: true});
 })
 
 let dataSeller = [];
@@ -114,7 +113,7 @@ function Validation(){
 
 
 //constructor function to register car Form info.
-function Car(brand, model, name, factoryYr, color, price, idCar){
+function Car(brand, model, name, factoryYr, color, price){
     this.brand = brand,
     this.model = model,
     this.name = name,
@@ -152,8 +151,8 @@ function getDataCar(){
     return carDataBase;
 }
 
-//to order the table by disirable atribute 
-$('#car-table').on('click', function(){ 
+//to sort the table by disirable atribute 
+$('#car-table-head').on('click', function(){ 
     let column = $(this).data('column');
     let order = $(this).data('order');
 
@@ -170,6 +169,7 @@ $('#car-table').on('click', function(){
 function SearchCar(){
    let item = document.getElementById('search_row').value;
    let data =  SearchTable(item, carDataBase)
+   console.log(data)
    CarTable(data)
 };
 
@@ -189,8 +189,7 @@ function SearchTable(item, data){
             name.includes(item)||
             factoryYr.includes(item) ||
             color.includes(item) ||
-            price.includes(item) ||
-            idCar.includes(item)){
+            price.includes(item)){
             filteredData.push(data[i])
         };
     };
@@ -306,7 +305,7 @@ function DeleteCar(){ // ldeleta as informação do certificado desejado
     let edit = $(`#edit-${idRow}`);
     let del = $(`#delete-${idRow}`);
     let cancel = $(`#cancEdit-${idRow}`);
-    let save = $(`#confirmEdit-${idRow}`);
+    let save = $(`#confirm-${idRow}`);
 
     edit.addClass('hidden');
     del.addClass('hidden');
