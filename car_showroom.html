@@ -37,15 +37,17 @@
     </div>
     <footer>
       <b>New Registration:</b>
-      <form onsubmit="CarRegistration()">
-        <input type="text" class="car-info" placeholder="BRAND" name="car_registration" id="brand_reg" required>
-        <input type="text" class="car-info" placeholder="MODEL" name="car_registration" id="model_reg" required>
-        <input type="text" class="car-info" placeholder="NAME" name="car_registration" id="name_reg" required>
-        <input type="number" class="car-info" placeholder="FACTORY YEAR" name="car_registration" id="factory_yr_reg" min="1900" width="167px" required >
-        <input type="text" class="car-info" placeholder="COLOR" name="car_registration" id="color_reg" required>
-        <input type="number" class="car-info" placeholder="PRICE" name="car_registration" id="price_reg" required>
-        <input type="image" src="registration.PNG" alt="Submit">
-      </form>
+      <div class="new-registration">
+        <form onsubmit="CarRegistration()">
+          <input type="text" class="car-info" placeholder="BRAND" name="car_registration" id="brand_reg" required>
+          <input type="text" class="car-info" placeholder="MODEL" name="car_registration" id="model_reg" required>
+          <input type="text" class="car-info" placeholder="NAME" name="car_registration" id="name_reg" required>
+          <input type="number" class="car-info" placeholder="FACTORY YEAR" name="car_registration" id="factory_yr_reg" min="1900" width="167px" required >
+          <input type="text" class="car-info" placeholder="COLOR" name="car_registration" id="color_reg" required>
+          <input type="number" class="car-info" placeholder="PRICE" name="car_registration" id="price_reg" required>
+          <input type="image" src="registration.PNG" alt="Submit">
+        </form>
+      </div></br>
     </footer>
     <script src="project.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

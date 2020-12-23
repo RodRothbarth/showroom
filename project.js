@@ -1,11 +1,14 @@
+//JQUERY masks
 $(document).ready(function(){
     $("#id").mask('000.000.000-00');
+    $("#login_id").mask('000.000.000-00');
     $("#phone").mask('(00) 000000000');
 })
 
 let dataSeller = [];
 let carDataBase = [];
 
+//constructor function to register seller Form info.
 function Seller(name, id, dtBirth, password, phone, email){
     this.name = name,
     this.id = id,
@@ -15,17 +18,19 @@ function Seller(name, id, dtBirth, password, phone, email){
     this.password = password
 };
 
-function SellerForm(){//cria o objeto a ser utilizado no cadastro
+//creates an object with information of new seller
+function SellerForm(){
     let user = Array.from(document.getElementsByName("seller_registration")).map(function(element){return element.value;}); 
     let form = new Seller(user[0], user[1], user[2], user[3], user[5], user[6]);
         return form; 
 };
 
-function RegisterSeller(){ //sistema para cadastrar um novo usuario.
+//function to register a new Seller for access purposes 
+function RegisterSeller(){
     let seller = SellerForm();
     let exists;
      
-    if (localStorage.getItem("user") === null ){
+    if (localStorage.getItem("seller") === null ){
         dataSeller.push(seller);
         localStorage.setItem("seller", JSON.stringify(dataSeller));
         alert("Registration Done!");
@@ -43,6 +48,7 @@ function RegisterSeller(){ //sistema para cadastrar um novo usuario.
         };   
     };        
 };
+
 //function to check if passwords are the same for checking pourposes
 function ValidPassword(){
     let message = document.getElementById("password_message");
@@ -54,7 +60,7 @@ function ValidPassword(){
     };
 };
 
-//function to validade the idnumber using its validation numbers.
+//function to validade the CPF idnumber using its validation numbers.
 function Idcheck(strCPF) {
     var sum = 0;
     var remainder;
@@ -88,19 +94,16 @@ function ValidId(){
     }; 
 };
 
-// function to check the Seller to grant access to the data base
+// function to check a registered Seller to grant access to the data base
 function Validation(){
-    dataSeller = JSON.parse(localStorage.getItem('user'));
+    dataSeller = JSON.parse(localStorage.getItem('seller'));
     let usern = document.getElementById("login_id").value;
     let pssw = document.getElementById("login_password").value;
 
     for(let i = 0; i < dataSeller.length; i++){
-        dataSeller[i].id = dataSeller.indexOf(dataSeller[i])
-        localStorage.setItem("user", JSON.stringify(dataSeller));
         if(dataSeller[i].id === usern){
             if(dataSeller[i].password === pssw){
-                localStorage.setItem("online", JSON.stringify(dataSeller[i]));
-                location.href="car_showroom.html";
+                window.open("car_showroom.html");
             }else{
                 alert("Invalid Password!");
             };
@@ -122,20 +125,22 @@ function Car(brand, model, name, factoryYr, color, price){
     this.price = price
 };
 
-function CarForm(){ //constroi o objeto para utilizar na criação da tabela e armazenamento dos certificados no localStorage
+//creates an object with information of new car
+function CarForm(){ 
     let carData = Array.from(document.getElementsByName("car_registration")).map(function(element){
         return element.value;});
     let form = new Car(carData[0], carData[1], carData[2], carData[3], carData[4], carData[5], carData[6]);
     return form; 
 };
 
+//function to register a new cars in stock
 function CarRegistration(){
     let car = CarForm(); 
-    if (localStorage.getItem('car') === null){ //se o localStorage nao existir, cria-se um
+    if (localStorage.getItem('car') === null){ //if localStorage is non existent it creates one
         carDataBase.push(car)
         localStorage.setItem('car', JSON.stringify(carDataBase));   
         alert("Car registration Done!");    
-    }else{ //se ele existir, recupera a informação e adiciona a nova
+    }else{ 
         carDataBase = JSON.parse(localStorage.getItem('car')); 
         carDataBase.push(car) ;
         localStorage.setItem('car', JSON.stringify(carDataBase));   
@@ -166,6 +171,7 @@ $('#car-table-head').on('click', function(){
     CarTable(carDataBase);
 });
 
+//enables search aplication
 function SearchCar(){
    let item = document.getElementById('search_row').value;
    let data =  SearchTable(item, carDataBase)
@@ -173,6 +179,7 @@ function SearchCar(){
    CarTable(data)
 };
 
+//searches items in the set table content
 function SearchTable(item, data){
     let filteredData = [];
     for (let i = 0; i < data.length; i++){
@@ -231,7 +238,8 @@ function CarTable(data){
     };
 };
 
-function EditCar(){ //abre a row de edição para os certificados 
+//functions enabeling CRUD applications
+function EditCar(){ 
     let idRow = $(this).data('id');
     let edit = $(`#edit-${idRow}`);
     let del = $(`#delete-${idRow}`);
@@ -257,7 +265,7 @@ function EditCar(){ //abre a row de edição para os certificados
     save.removeClass('hidden')
 }
 
-function ConfirmEdit(){//confirma a edição feita nas linhas da table
+function ConfirmEdit(){
     let idRow = $(this).data('id');
     let edit = $(`#edit-${idRow}`);
     let del = $(`#delete-${idRow}`);
@@ -286,7 +294,7 @@ function ConfirmEdit(){//confirma a edição feita nas linhas da table
     location.reload();
 }
 
-function CancelEdit(){ //cancela a opção de edição
+function CancelEdit(){ 
     let idRow = $(this).data('id');
     let edit = $(`#edit-${idRow}`);
     let del = $(`#delete-${idRow}`);
@@ -300,7 +308,7 @@ function CancelEdit(){ //cancela a opção de edição
     location.reload();
 }
 
-function DeleteCar(){ // ldeleta as informação do certificado desejado
+function DeleteCar(){ 
     let idRow = $(this).data('id');
     let edit = $(`#edit-${idRow}`);
     let del = $(`#delete-${idRow}`);
@@ -313,7 +321,7 @@ function DeleteCar(){ // ldeleta as informação do certificado desejado
     save.removeClass('hidden');   
 }
 
-function ConfirmDel(){ // confirma a deleção do item da tabela
+function ConfirmDel(){ 
     let idRow = $(this).data("id")
     let row = $(`.row-${idRow}`)
     
@@ -322,7 +330,7 @@ function ConfirmDel(){ // confirma a deleção do item da tabela
     row.remove()
 }
 
-function CancelDel(){ // cancela a atribuição de deleção do item da tabela
+function CancelDel(){ 
     let idRow = $(this).data('id');
     let edit = $(`#edit-${idRow}`);
     let del = $(`#delete-${idRow}`);
@@ -334,4 +342,3 @@ function CancelDel(){ // cancela a atribuição de deleção do item da tabela
     cancel.addClass('hidden')
     save.addClass('hidden')  
 }
-

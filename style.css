@@ -1,25 +1,29 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900);
 
-
 /* -----CSS_car_showroom.html------- */
 .header{
     padding: 15px;
-    background: #af2d2d;
+    background: #07689f;
     font-size: 30px;
     font: bold;    
     width: auto;
+}
+
+.header, footer, .table, .sales{
     display: flex;
 }
 
 body{
-    background-color: #234b5f;
-    padding-bottom: 56px;
-    min-height: 100vh;
+    background-color: #fafafa;
     position: relative;
 }
 
 .header, .table, .title, .car-info, .sales{
     font-family: "roboto", sans-serif;
+}
+
+.sales, .header, #car-table-head, b{
+    color: white;
 }
 
 .car-info, #search_row{
@@ -40,7 +44,6 @@ body{
 }
 
 .table, .sales{
-    display: flex;
     justify-content: center;
 }
 
@@ -48,7 +51,7 @@ table{
     width: 90%;
 }
 
-.search-row, footer{
+.search-row,.new-registration{
     margin-left: auto;
     margin-right: auto;
 }
@@ -59,26 +62,18 @@ table{
     width: 500px;
 }
 
-.hidden{
-    display: none;
+#car-table-head{
+    background-color: #62b8e9;
+    text-align:center;
+    font-weight: bold;
 }
 
 footer{
-    background-color: #ee2d2d;
+    background-color: #ff7e67;
     padding: 10px;
     position: fixed;
     width: 100%;
     bottom: 0;
-}
-
-.sales, .header, #car-table-head{
-    color: white;
-}
-
-#car-table-head{
-    background-color: #ee2d2d;
-    text-align:center;
-    font-weight: bold;
 }
 
 .showroom-table th, .showroom-table td{
@@ -86,21 +81,100 @@ footer{
 }
 
 #car_table tr{
-    border-bottom:1px solid  #F10C45;
+    border-bottom:1px solid  #62b8e9;
 }
 
 #car_table tr:nth-of-type(even){
-    background-color: #f7e9ed;
+    background-color: #cdebfc;
 }
 #car_table tr:nth-of-type(odd){
     background-color: white;
 }
 
 #car_table tr:last-of-type{
-    border-bottom: 2px solid #F10C45;
+    border-bottom: 2px solid #62b8e9;
 }
 
+.hidden{
+    display: none;
+}
 
+/* -----CSS_home.html------- */
+.home-registration, .home-header{
+    display: flex;
+}
 
+.home-header{
+    padding: 15px;
+    background: #07689f;
+    font-size: 30px;
+    font: bold;    
+    width: auto;
+    color: white;
+    justify-content: center;
+    font-family: "roboto", sans-serif;
+}
 
+.home-body{
+  justify-content: center;
+  align-items: center;
+}
 
+.registration{
+    display: grid;
+    width: 70%;
+    margin: 0 auto;
+    position: relative;
+    height: auto;
+    background-color:  #62b8e9;
+    border-radius: 5px;
+    padding: 20px;
+    grid-template-columns: auto auto;
+}
+
+.login-box, .form-group{
+    margin: 0 auto;
+    text-align: center;
+    width: 50%;   
+}
+
+.login-box{
+    padding-top: 25%;
+}
+
+#dt_birth{
+    width: 170px;
+}
+
+.home-registration{
+
+    justify-content:left; 
+    font-weight: bold;    
+}
+
+.home-registration, .home-input{
+    padding: 2px;
+}
+
+.home-input{
+    border: 2px solid  whitesmoke;
+    border-radius: 5px;
+}
+
+.title{
+    font-size: 35px;
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.footer-home{
+    font-weight: bold;
+    color: black;
+    justify-content: center;
+    position: fixed;
+}
+
+.home-registration, .footer-home{
+    font-family: "Roboto";
+}
